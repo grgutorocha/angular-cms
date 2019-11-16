@@ -6,11 +6,20 @@ import { AuthGuardService } from '../services';
 import {
   HomeComponent,
   LoginComponent,
-  RegisterComponent
+  RegisterComponent,
+  MasterComponent
 } from '../pages';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuardService] },
+  {
+    path: '',
+    component: MasterComponent,
+    canActivate: [AuthGuardService],
+    children: [
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent }
+    ]
+  },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' }

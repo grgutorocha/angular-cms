@@ -21,7 +21,8 @@ import {
 import {
   HomeComponent,
   LoginComponent,
-  RegisterComponent
+  RegisterComponent,
+  MasterComponent
 } from './pages';
 
 @NgModule({
@@ -31,7 +32,8 @@ import {
     // component pages below here
     HomeComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    MasterComponent
   ],
   imports: [
     BrowserModule,
