@@ -12,7 +12,14 @@ import {
   CustomThemeModule
 } from './modules';
 
-import { LoaderComponent } from './components';
+import {
+  LoaderComponent,
+  LogoutComponent,
+  GreetingComponent,
+  CopyrightComponent,
+  FooterComponent,
+  HeaderComponent
+} from './components';
 
 import {
   InterceptorService
@@ -29,6 +36,11 @@ import {
   declarations: [
     AppComponent,
     LoaderComponent,
+    LogoutComponent,
+    GreetingComponent,
+    CopyrightComponent,
+    FooterComponent,
+    HeaderComponent,
     // component pages below here
     HomeComponent,
     LoginComponent,

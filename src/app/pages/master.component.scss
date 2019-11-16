@@ -1,0 +1,12 @@
+.master {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #f7f7f7;
+
+  &__content {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+  }
+}

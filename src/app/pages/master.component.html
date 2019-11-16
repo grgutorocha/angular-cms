@@ -1,6 +1,10 @@
-<div *ngIf="isLogged">
-  <a class="nav-item nav-link" routerLink="/">Home</a>
-  <button (click)="logout()">Logout</button>
+<div class="master">
+  <app-header></app-header>
+  <div class="master__content">
+    <router-outlet></router-outlet>
+  </div>
+  <app-footer></app-footer>
 </div>
 
-<router-outlet></router-outlet>
+
+
