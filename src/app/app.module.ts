@@ -1,14 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 
-import { AppRoutingModule } from './modules';
+import {
+  AppRoutingModule,
+  CustomThemeModule
+} from './modules';
 
-import { AlertComponent, LoaderComponent } from './components';
+import { LoaderComponent } from './components';
 
 import {
   InterceptorService
@@ -23,7 +27,6 @@ import {
 @NgModule({
   declarations: [
     AppComponent,
-    AlertComponent,
     LoaderComponent,
     // component pages below here
     HomeComponent,
@@ -34,7 +37,9 @@ import {
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    CustomThemeModule,
+    BrowserAnimationsModule
   ],
   providers: [
     CookieService,

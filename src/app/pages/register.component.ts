@@ -7,7 +7,8 @@ import {
 } from '../services';
 
 @Component({
-  templateUrl: 'register.component.html'
+  templateUrl: 'register.component.html',
+  styleUrls: ['register.component.scss']
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
@@ -16,7 +17,7 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private alertService: AlertService,
+    private alertService: AlertService
   ) {}
 
   ngOnInit() {
@@ -31,8 +32,6 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.registerForm.invalid) {
       return;

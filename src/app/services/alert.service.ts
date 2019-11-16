@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +8,19 @@ import { Observable, Subject } from 'rxjs';
 export class AlertService {
   private subject = new Subject<any>();
 
+  constructor(private snackBar: MatSnackBar) {
+  }
+
   observe(): Observable<any> {
     return this.subject.asObservable();
   }
 
   setSubject(type, message) {
-    this.subject.next({ type, message });
+    this.snackBar.open(message, 'Close', {
+      duration: 5000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top'
+    });
   }
 
   success(message: string) {

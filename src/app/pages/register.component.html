@@ -1,28 +1,27 @@
-<h2>Register</h2>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div class="form-group">
-    <label for="name">Name</label>
-    <input id="name" type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl.name.errors }" />
-    <div *ngIf="submitted && formControl.name.errors" class="invalid-feedback">
-      <div *ngIf="formControl.name.errors.required">Name is required</div>
-    </div>
+<section class="register">
+  <div class="register__content">
+    <img src="https://www.aubay.pt/img/aubay_logo_black.png" alt="Aubay" class="register__logo">
+    <form class="register__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="register__field">
+        <input matInput placeholder="Name" formControlName="name">
+        <mat-error *ngIf="submitted && formControl.name.errors && formControl.name.errors.required">
+          Name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="register__field">
+        <input matInput placeholder="E-mail" formControlName="email">
+        <mat-error *ngIf="submitted && formControl.email.errors && formControl.email.errors.required">
+          E-mail is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="register__field">
+        <input matInput placeholder="Password" formControlName="password" type="password">
+        <mat-error *ngIf="submitted && formControl.password.errors && formControl.password.errors.required">
+          Password is required
+        </mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" class="register__button">Register</button>
+      <a mat-flat-button routerLink="/login">Back to Login</a>
+    </form>
   </div>
-  <div class="form-group">
-    <label for="email">E-mail</label>
-    <input id="email" type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl.email.errors }" />
-    <div *ngIf="submitted && formControl.email.errors" class="invalid-feedback">
-      <div *ngIf="formControl.email.errors.required">E-mail is required</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input id="password" type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControl.password.errors }" />
-    <div *ngIf="submitted && formControl.password.errors" class="invalid-feedback">
-      <div *ngIf="formControl.password.errors.required">Password is required</div>
-    </div>
-  </div>
-  <div class="form-group">
-    <button class="btn btn-primary">Register</button>
-    <a routerLink="/login" class="btn btn-link">Back to Login</a>
-  </div>
-</form>
+</section>

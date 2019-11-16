@@ -5,7 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService, AuthenticationService, AuthGuardService, StorageService, StorageType } from '../services';
 
 @Component({
-  templateUrl: 'login.component.html'
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private alertService: AlertService,
     private authGuardService: AuthGuardService,
-    private storageService: StorageService,
+    private storageService: StorageService
   ) {
     if (this.authGuardService.isLogged()) {
       this.router.navigate(['/']).then(() => console.log('Redirected'));
@@ -38,8 +39,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-
-    this.alertService.clear();
 
     if (this.loginForm.invalid) {
       return;
