@@ -3,19 +3,22 @@
     <img src="https://www.aubay.pt/img/aubay_logo_black.png" alt="Aubay" class="register__logo">
     <form class="register__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <mat-form-field class="register__field">
-        <input matInput placeholder="Name" formControlName="name">
+        <mat-label>Name</mat-label>
+        <input matInput placeholder="Place your name here" formControlName="name">
         <mat-error *ngIf="submitted && formControl.name.errors && formControl.name.errors.required">
           Name is required
         </mat-error>
       </mat-form-field>
       <mat-form-field class="register__field">
-        <input matInput placeholder="E-mail" formControlName="email">
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="Place your e-mail here" formControlName="email">
         <mat-error *ngIf="submitted && formControl.email.errors && formControl.email.errors.required">
           E-mail is required
         </mat-error>
       </mat-form-field>
       <mat-form-field class="register__field">
-        <input matInput placeholder="Password" formControlName="password" type="password">
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="Place your password here" formControlName="password" type="password">
         <mat-error *ngIf="submitted && formControl.password.errors && formControl.password.errors.required">
           Password is required
         </mat-error>
