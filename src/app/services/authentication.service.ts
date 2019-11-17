@@ -9,12 +9,10 @@ export class AuthenticationService {
   constructor(private http: HttpService) {}
 
   login(data) {
-    this.http.setEndpoint('auth/login');
-    return this.http.post(data);
+    return this.http.post('auth/login', data);
   }
 
   logout() {
-    this.http.setEndpoint('auth/logout');
-    return this.http.post({});
+    return this.http.post('auth/logout', {});
   }
 }

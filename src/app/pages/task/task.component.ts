@@ -5,7 +5,8 @@ import { AlertService, TaskService } from '../../services';
 
 @Component({
   selector: 'app-task',
-  templateUrl: './task.component.html'
+  templateUrl: './task.component.html',
+  styleUrls: ['task.component.scss']
 })
 export class TaskComponent implements OnInit {
 
@@ -43,11 +44,13 @@ export class TaskComponent implements OnInit {
   }
 
   onSuccessGetAll(data) {
-    this.tasks = data.result;
+    this.tasks = data.result.filter(item => item.project.toString() === this.projectId);
   }
 
   edit(id) {
-    this.get(id);
+    const selectedTask = this.tasks.filter(item => item._id === id);
+    const { description } = selectedTask[0];
+    this.form.controls.description.setValue(description);
     this.setId(id);
   }
 
@@ -79,28 +82,46 @@ export class TaskComponent implements OnInit {
   }
 
   update() {
-    this.service.put(this.id, this.form.value).subscribe(this.onSuccess, this.onError);
+    this.service.put(this.id, this.form.value).subscribe(this.onSuccessUpdate, this.onError);
+  }
+
+  onSuccessUpdate(data) {
+    this.tasks = this.tasks.map(item => (item._id.toString() === data.result._id.toString()) ? data.result : item);
+    this.alertService.success('Successfully updated');
+    this.cancel();
   }
 
   create() {
-    this.service.post({ project: this.projectId, ...this.form.value }).subscribe(this.onSuccess, this.onError);
+    this.service.post({ project: this.projectId, ...this.form.value }).subscribe(this.onSuccessCreate, this.onError);
   }
 
-  onSuccess() {
-    this.alertService.success('Successfully saved');
-    this.getAll();
+  onSuccessCreate(data) {
+    this.tasks.push(data.result);
+    this.alertService.success('Successfully created');
     this.cancel();
+  }
+
+  delete(id) {
+    this.service.delete(id).subscribe(this.onSuccessDelete(id), this.onError);
+  }
+
+  onSuccessDelete(id) {
+    return () => {
+      this.alertService.success('Successfully removed');
+      this.tasks = this.tasks.filter(item => item._id.toString() !== id);
+    };
   }
 
   onError(error) {
     this.alertService.error(error.error.message);
   }
 
-  delete(id) {
-    this.service.delete(id).subscribe(() => {
-      this.alertService.success('Successfully removed');
-      this.tasks = this.tasks.filter(item => item._id.toString() !== id);
-    });
+  done(id) {
+    this.service.put(id, { status: 'closed' }).subscribe(this.onSuccessUpdate, this.onError);
+  }
+
+  undone(id) {
+    this.service.put(id, { status: 'open' }).subscribe(this.onSuccessUpdate, this.onError);
   }
 
   cancel() {
@@ -114,7 +135,9 @@ export class TaskComponent implements OnInit {
   }
 
   binds() {
-    this.onSuccess = this.onSuccess.bind(this);
+    this.onSuccessUpdate = this.onSuccessUpdate.bind(this);
+    this.onSuccessCreate = this.onSuccessCreate.bind(this);
+    this.onSuccessDelete = this.onSuccessDelete.bind(this);
     this.onError = this.onError.bind(this);
     this.onSuccessGetAll = this.onSuccessGetAll.bind(this);
     this.onSuccessGet = this.onSuccessGet.bind(this);

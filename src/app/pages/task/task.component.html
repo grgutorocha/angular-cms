@@ -18,6 +18,10 @@
 
 <ul>
   <li *ngFor="let task of tasks">
-    {{task.description}} - <a (click)="edit(task._id)">Edit</a> - <a (click)="delete(task._id)">Delete</a>
+    <span [class.task__done]="task.status === 'closed'" matTooltip="Done on {{task.updatedAt | date}}" [matTooltipDisabled]="task.status === 'open'">{{task.description}}</span>
+    <span *ngIf="task.status === 'closed'"><button mat-flat-button color="accent" (click)="undone(task._id)">Undone</button></span>
+    <span *ngIf="task.status === 'open'"><button mat-flat-button color="accent" (click)="done(task._id)">Done</button></span>
+    <span *ngIf="task.status === 'open'"><button mat-flat-button color="primary" (click)="edit(task._id)">Edit</button></span>
+    <span *ngIf="task.status === 'open'"><button mat-flat-button color="warn" (click)="delete(task._id)">Delete</button></span>
   </li>
 </ul>

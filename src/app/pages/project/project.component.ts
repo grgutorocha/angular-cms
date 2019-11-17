@@ -15,11 +15,11 @@ export class ProjectComponent implements OnInit {
     private service: ProjectService,
     private alertService: AlertService,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.getAll();
   }
-
-  ngOnInit() {}
 
   getAll() {
     // @ts-ignore

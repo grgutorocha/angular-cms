@@ -7,32 +7,26 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class HttpService {
-  endpoint;
-
   constructor(private http: HttpClient) {}
 
-  setEndpoint(endpoint) {
-    this.endpoint = endpoint;
+  getAll(endpoint) {
+    return this.http.get(`${environment.apiUrl}/${endpoint}`);
   }
 
-  getAll() {
-    return this.http.get(`${environment.apiUrl}/${this.endpoint}`);
+  get(endpoint, id) {
+    return this.http.get(`${environment.apiUrl}/${endpoint}/${id}`);
   }
 
-  get(id) {
-    return this.http.get(`${environment.apiUrl}/${this.endpoint}/${id}`);
+  post(endpoint, data) {
+    return this.http.post(`${environment.apiUrl}/${endpoint}`, data);
   }
 
-  post(data) {
-    return this.http.post(`${environment.apiUrl}/${this.endpoint}`, data);
+  put(endpoint, id, data) {
+    return this.http.put(`${environment.apiUrl}/${endpoint}/${id}`, data);
   }
 
-  put(id, data) {
-    return this.http.put(`${environment.apiUrl}/${this.endpoint}/${id}`, data);
-  }
-
-  delete(id) {
-    return this.http.delete(`${environment.apiUrl}/${this.endpoint}/${id}`);
+  delete(endpoint, id) {
+    return this.http.delete(`${environment.apiUrl}/${endpoint}/${id}`);
   }
 
 }
