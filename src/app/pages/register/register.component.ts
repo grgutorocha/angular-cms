@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   AlertService,
   UserService
-} from '../services';
+} from '../../services';
 
 @Component({
   templateUrl: 'register.component.html',
@@ -17,7 +18,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -39,7 +41,8 @@ export class RegisterComponent implements OnInit {
 
     this.userService.register(this.registerForm.value).subscribe(
       () => {
-        this.alertService.success('Registration successful');
+        this.alertService.success('Registered successfully');
+        this.router.navigate(['/login']).then(null);
       },
       error => {
         this.alertService.error(error.error.message);

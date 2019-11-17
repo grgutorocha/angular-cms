@@ -7,7 +7,9 @@ import {
   HomeComponent,
   LoginComponent,
   RegisterComponent,
-  MasterComponent
+  MasterComponent,
+  ProjectComponent,
+  ProjectFormComponent
 } from '../pages';
 
 const routes: Routes = [
@@ -16,8 +18,11 @@ const routes: Routes = [
     component: MasterComponent,
     canActivate: [AuthGuardService],
     children: [
-      { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'home', component: HomeComponent }
+      { path: '', redirectTo: 'project', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent },
+      { path: 'project', component: ProjectComponent },
+      { path: 'project/form', component: ProjectFormComponent },
+      { path: 'project/form/:id', component: ProjectFormComponent },
     ]
   },
   { path: 'login', component: LoginComponent },

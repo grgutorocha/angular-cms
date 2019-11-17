@@ -1,0 +1,7 @@
+<h1>Projects</h1>
+<button mat-flat-button color="primary" (click)="create()">Create</button>
+<ul>
+  <li *ngFor="let project of projects">
+    {{project.name}} - <a (click)="edit(project._id)">Edit</a> - <a (click)="delete(project._id)">Delete</a>
+  </li>
+</ul>

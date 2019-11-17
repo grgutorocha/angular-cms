@@ -5,9 +5,9 @@ import { HttpService } from './http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class ProjectService {
 
-  endpoint = 'users';
+  endpoint = 'projects';
 
   constructor(private http: HttpService) {
     this.http.setEndpoint(this.endpoint);
@@ -17,11 +17,20 @@ export class UserService {
     return this.http.getAll();
   }
 
-  register(data) {
+  get(id) {
+    return this.http.get(id);
+  }
+
+  post(data) {
     return this.http.post(data);
+  }
+
+  put(id, data) {
+    return this.http.put(id, data);
   }
 
   delete(id) {
     return this.http.delete(id);
   }
+
 }

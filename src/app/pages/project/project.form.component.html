@@ -1,0 +1,18 @@
+<h1>Project Form</h1>
+<button mat-flat-button color="primary" (click)="goToList()">List All</button>
+
+<section class="project">
+  <div class="project__content">
+    <form class="project__form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="project__field">
+        <mat-label>Project Name</mat-label>
+        <input matInput placeholder="Place the project name here" formControlName="name">
+        <mat-error *ngIf="submitted && formControl.name.errors && formControl.name.errors.required">
+          Project name is required
+        </mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" class="project__button">Save</button>
+      <button mat-flat-button color="primary" (click)="goToList()">Cancel</button>
+    </form>
+  </div>
+</section>

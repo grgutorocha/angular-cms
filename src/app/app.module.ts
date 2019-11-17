@@ -29,7 +29,9 @@ import {
   HomeComponent,
   LoginComponent,
   RegisterComponent,
-  MasterComponent
+  MasterComponent,
+  ProjectComponent,
+  ProjectFormComponent
 } from './pages';
 
 @NgModule({
@@ -45,7 +47,9 @@ import {
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    MasterComponent
+    MasterComponent,
+    ProjectComponent,
+    ProjectFormComponent
   ],
   imports: [
     BrowserModule,
