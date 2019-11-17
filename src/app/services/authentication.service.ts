@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
-import { environment } from '../../environments/environment';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpService) {}
 
-  login(email, password) {
-    return this.http.post(`${environment.apiUrl}/auth/login`, { email, password });
+  login(data) {
+    this.http.setEndpoint('auth/login');
+    return this.http.post(data);
   }
 
   logout() {
-    return this.http.post(`${environment.apiUrl}/auth/logout`, {});
+    this.http.setEndpoint('auth/logout');
+    return this.http.post({});
   }
 }

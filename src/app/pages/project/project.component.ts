@@ -12,33 +12,33 @@ export class ProjectComponent implements OnInit {
   projects = [];
 
   constructor(
-    private projectService: ProjectService,
+    private service: ProjectService,
     private alertService: AlertService,
     private router: Router
-  ) {}
-
-  ngOnInit() {
+  ) {
     this.getAll();
   }
 
+  ngOnInit() {}
+
   getAll() {
     // @ts-ignore
-    this.projectService.getAll().subscribe(data => this.projects = data.result);
+    this.service.getAll().subscribe(data => this.projects = data.result);
   }
 
   delete(id) {
-    this.projectService.delete(id).subscribe(() => {
+    this.service.delete(id).subscribe(() => {
       this.alertService.success('Successfully removed');
       this.projects = this.projects.filter(item => item._id.toString() !== id);
     });
   }
 
   create() {
-    this.router.navigate(['/project/form']).then(null);
+    this.router.navigate(['/project/form']);
   }
 
   edit(id) {
-    this.router.navigate(['/project/form', id]).then(null);
+    this.router.navigate(['/project/form', id]);
   }
 
 }

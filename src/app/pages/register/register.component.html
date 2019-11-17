@@ -1,7 +1,7 @@
 <section class="register">
   <div class="register__content">
     <img src="https://www.aubay.pt/img/aubay_logo_black.png" alt="Aubay" class="register__logo">
-    <form class="register__form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form class="register__form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="register__field">
         <mat-label>Name</mat-label>
         <input matInput placeholder="Place your name here" formControlName="name">

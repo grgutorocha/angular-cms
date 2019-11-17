@@ -2,58 +2,76 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { AlertService, AuthenticationService, AuthGuardService, StorageService, StorageType } from '../../services';
+import { AlertService, AuthenticationService, AuthGuardService } from '../../services';
 
 @Component({
   templateUrl: 'login.component.html',
   styleUrls: ['login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+
+  form: FormGroup;
   submitted = false;
+  controlsConfig = {
+    email: ['', Validators.required],
+    password: ['', Validators.required]
+  };
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authenticationService: AuthenticationService,
+    private service: AuthenticationService,
     private alertService: AlertService,
-    private authGuardService: AuthGuardService,
-    private storageService: StorageService
+    private authGuardService: AuthGuardService
   ) {
     if (this.authGuardService.isLogged()) {
-      this.router.navigate(['/']).then(() => console.log('Redirected'));
+      this.goToDashboard();
     }
 
-    this.storageService.setType(StorageType.LOCAL);
+    this.binds();
   }
 
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required]
-    });
+    this.configForm();
   }
 
-  get formControl() { return this.loginForm.controls; }
+  get formControl() { return this.form.controls; }
+
+  configForm() {
+    this.form = this.formBuilder.group(this.controlsConfig);
+  }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.loginForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
-    this.authenticationService.login(this.formControl.email.value, this.formControl.password.value)
-      .subscribe(
-        data => {
-          // @ts-ignore
-          this.storageService.set('currentUser', JSON.stringify(data.result));
-          this.router.navigate(['/']).then(() => console.log('Redirected'));
-        },
-        error => {
-          this.storageService.remove('currentUser');
-          this.alertService.error(error.error.message);
-        });
+    this.login();
+  }
+
+  login() {
+    this.service.login(this.form.value).subscribe(this.onSuccess, this.onError);
+  }
+
+  onSuccess(data) {
+    this.authGuardService.setCurrentUser(JSON.stringify(data.result));
+    this.goToDashboard();
+  }
+
+  onError(error) {
+    this.authGuardService.removeCurrentUser();
+    this.alertService.error(error.error.message);
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/']);
+  }
+
+  binds() {
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onError = this.onError.bind(this);
   }
 }

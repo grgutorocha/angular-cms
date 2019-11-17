@@ -3,7 +3,7 @@
 
 <section class="project">
   <div class="project__content">
-    <form class="project__form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+    <form class="project__form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field class="project__field">
         <mat-label>Project Name</mat-label>
         <input matInput placeholder="Place the project name here" formControlName="name">
@@ -12,7 +12,11 @@
         </mat-error>
       </mat-form-field>
       <button mat-flat-button color="primary" type="submit" class="project__button">Save</button>
-      <button mat-flat-button color="primary" (click)="goToList()">Cancel</button>
+      <button mat-flat-button color="warn" (click)="goToList()">Cancel</button>
     </form>
   </div>
+</section>
+
+<section *ngIf="id">
+  <app-task [projectId]="id"></app-task>
 </section>

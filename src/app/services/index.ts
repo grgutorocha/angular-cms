@@ -6,3 +6,4 @@ export * from './auth.guard.service';
 export * from './loader.service';
 export * from './storage/index';
 export * from './project.service';
+export * from './task.service';

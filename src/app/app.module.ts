@@ -31,7 +31,8 @@ import {
   RegisterComponent,
   MasterComponent,
   ProjectComponent,
-  ProjectFormComponent
+  ProjectFormComponent,
+  TaskComponent
 } from './pages';
 
 @NgModule({
@@ -49,7 +50,8 @@ import {
     RegisterComponent,
     MasterComponent,
     ProjectComponent,
-    ProjectFormComponent
+    ProjectFormComponent,
+    TaskComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,23 @@
+<h1>Tasks</h1>
+
+<section class="task">
+  <div class="task__content">
+    <form class="task__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field class="task__field">
+        <mat-label>Task Description</mat-label>
+        <input matInput placeholder="Place the task description here" formControlName="description">
+        <mat-error *ngIf="submitted && formControl.description.errors && formControl.description.errors.required">
+          Task description is required
+        </mat-error>
+      </mat-form-field>
+      <button mat-flat-button color="primary" type="submit" class="task__button">Save</button>
+      <button mat-flat-button color="warn" type="button" (click)="cancel()">Cancel</button>
+    </form>
+  </div>
+</section>
+
+<ul>
+  <li *ngFor="let task of tasks">
+    {{task.description}} - <a (click)="edit(task._id)">Edit</a> - <a (click)="delete(task._id)">Delete</a>
+  </li>
+</ul>

@@ -1,11 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import {
-  AuthenticationService,
-  StorageService,
-  StorageType
-} from '../../services';
+import { AuthenticationService, AuthGuardService } from '../../services';
 
 @Component({
     selector: 'app-logout',
@@ -16,14 +12,13 @@ export class LogoutComponent {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private storageService: StorageService
+    private authGuardService: AuthGuardService
   ) {}
 
   logout() {
     this.authenticationService.logout().subscribe(() => {
-      this.storageService.setType(StorageType.LOCAL);
-      this.storageService.remove('currentUser');
-      this.router.navigate(['/login']).then(() => console.log('Redirected'));
+      this.authGuardService.removeCurrentUser();
+      this.router.navigate(['/login']);
     });
   }
 

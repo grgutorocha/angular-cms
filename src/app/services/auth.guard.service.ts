@@ -28,6 +28,14 @@ export class AuthGuardService implements CanActivate {
     return this.storageService.get('currentUser');
   }
 
+  setCurrentUser(data) {
+    this.storageService.set('currentUser', data);
+  }
+
+  removeCurrentUser() {
+    this.storageService.remove('currentUser');
+  }
+
   isLogged() {
     return this.getCurrentUser();
   }

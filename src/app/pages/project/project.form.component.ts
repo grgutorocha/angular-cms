@@ -10,43 +10,54 @@ import { AlertService, ProjectService } from '../../services';
 })
 export class ProjectFormComponent implements OnInit {
 
-  projectForm: FormGroup;
-  submitted = false;
-
   id: string;
+  form: FormGroup;
+  submitted = false;
+  controlsConfig = {
+    name: ['', Validators.required]
+  };
 
   constructor(
+    private service: ProjectService,
     private formBuilder: FormBuilder,
-    private projectService: ProjectService,
     private alertService: AlertService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.binds();
     this.setParams();
   }
 
   setParams() {
-    this.route.params.subscribe(params => {
-      this.id = params.id;
-    });
+    this.route.params.subscribe(params => this.id = params.id);
   }
 
   ngOnInit() {
-    this.projectForm = this.formBuilder.group({
-      name: ['', Validators.required]
-    });
+    this.configForm();
 
     if (this.id) {
-      this.load();
+      this.get();
     }
   }
 
-  get formControl() { return this.projectForm.controls; }
+  get formControl() { return this.form.controls; }
+
+  configForm() {
+    this.form = this.formBuilder.group(this.controlsConfig);
+  }
+
+  get() {
+    this.service.get(this.id).subscribe(this.loadForm);
+  }
+
+  loadForm(data) {
+    this.form.controls.name.setValue(data.result.name);
+  }
 
   onSubmit() {
     this.submitted = true;
 
-    if (this.projectForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
@@ -55,33 +66,37 @@ export class ProjectFormComponent implements OnInit {
 
   save() {
     if (this.id) {
-      this.projectService.put(this.id, this.projectForm.value).subscribe(
-        () => {
-          this.alertService.success('Updated successfully');
-          this.goToList();
-        },
-        error => this.alertService.error(error.error.message)
-      );
+      this.update();
     } else {
-      this.projectService.post(this.projectForm.value).subscribe(
-        () => {
-          this.alertService.success('Created successfully');
-          this.goToList();
-        },
-        error => this.alertService.error(error.error.message)
-      );
+      this.create();
     }
   }
 
-  load() {
-    this.projectService.get(this.id).subscribe(data => {
-      // @ts-ignore
-      this.projectForm.controls.name.setValue(data.result.name);
-    });
+  update() {
+    this.service.put(this.id, this.form.value).subscribe(this.onSuccess, this.onError);
+  }
+
+  create() {
+    this.service.post(this.form.value).subscribe(this.onSuccess, this.onError);
+  }
+
+  onSuccess() {
+    this.alertService.success('Successfully saved');
+    this.goToList();
+  }
+
+  onError(error) {
+    this.alertService.error(error.error.message);
   }
 
   goToList() {
-    this.router.navigate(['/project']).then(null);
+    this.router.navigate(['/project']);
+  }
+
+  binds() {
+    this.onSuccess = this.onSuccess.bind(this);
+    this.onError = this.onError.bind(this);
+    this.loadForm = this.loadForm.bind(this);
   }
 
 }

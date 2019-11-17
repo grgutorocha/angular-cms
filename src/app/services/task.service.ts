@@ -5,9 +5,9 @@ import { HttpService } from './http.service';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class TaskService {
 
-  endpoint = 'users';
+  endpoint = 'tasks';
 
   constructor(private http: HttpService) {
     this.http.setEndpoint(this.endpoint);
@@ -32,4 +32,5 @@ export class UserService {
   delete(id) {
     return this.http.delete(id);
   }
+
 }
