@@ -5,7 +5,8 @@ import { AlertService, ProjectService } from '../../services';
 
 @Component({
   selector: 'app-project',
-  templateUrl: './project.component.html'
+  templateUrl: './project.component.html',
+  styleUrls: ['project.component.scss']
 })
 export class ProjectComponent implements OnInit {
 

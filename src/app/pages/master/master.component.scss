@@ -7,6 +7,9 @@
   &__content {
     display: flex;
     flex: 1;
+    justify-content: center;
+
     padding: 20px;
+    width: calc(100% - 40px);
   }
 }

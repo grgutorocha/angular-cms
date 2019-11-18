@@ -1,7 +1,21 @@
-<h1>Projects</h1>
-<button mat-flat-button color="primary" (click)="create()">Create</button>
-<ul>
-  <li *ngFor="let project of projects">
-    {{project.name}} - <a (click)="edit(project._id)">Edit</a> - <a (click)="delete(project._id)">Delete</a>
-  </li>
-</ul>
+<section class="project">
+  <div class="project__container">
+    <div class="project__header">
+      <h1 class="project__title">Projects</h1>
+      <div class="project__actions">
+        <button mat-flat-button color="primary" (click)="create()">Create</button>
+      </div>
+    </div>
+    <div class="project__content">
+      <ul class="project__list">
+        <li *ngFor="let project of projects" class="project__item">
+          <div class="project__item-title">{{project.name}}</div>
+          <div class="project__item-buttons">
+            <button mat-flat-button color="primary" (click)="edit(project._id)">Edit</button>
+            <button mat-flat-button color="warn" (click)="delete(project._id)">Delete</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

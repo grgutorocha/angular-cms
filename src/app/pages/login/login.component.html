@@ -2,14 +2,14 @@
   <div class="login__content">
     <img src="https://www.aubay.pt/img/aubay_logo_black.png" alt="Aubay" class="login__logo">
     <form class="login__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <mat-form-field class="login__field">
+      <mat-form-field class="login__field" appearance="outline" floatLabel="always">
         <mat-label>E-mail</mat-label>
         <input matInput placeholder="Place your e-mail here" formControlName="email">
         <mat-error *ngIf="submitted && formControl.email.errors && formControl.email.errors.required">
           E-mail is required
         </mat-error>
       </mat-form-field>
-      <mat-form-field class="login__field">
+      <mat-form-field class="login__field" appearance="outline" floatLabel="always">
         <mat-label>Password</mat-label>
         <input matInput placeholder="Place your password here" formControlName="password" type="password">
         <mat-error *ngIf="submitted && formControl.password.errors && formControl.password.errors.required">
